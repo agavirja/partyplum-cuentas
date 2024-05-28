@@ -354,7 +354,7 @@ def main():
                 df = pd.DataFrame(response['selected_rows'])
                 if not df.empty:
                     datapagosfiltro = datapagos[datapagos['id'].isin(df['id'])]
-                           
+                                
                 col1,col2 = st.columns([0.3,0.7])
                 with col1:
                     if st.button('Guardar Pago'):
@@ -377,7 +377,8 @@ def main():
         col1, col2, col3, col4 = st.columns(4)
         with col1:
             default_value = dataexport['fecha_pago'].iloc[0]
-            fecha_pago    = st.date_input('Fecha de pago', value=default_value)
+            try:    fecha_pago    = st.date_input('Fecha de pago', value=default_value)
+            except: fecha_pago    = st.date_input('Fecha de pago', value=None)
             dataexport.loc[0, 'fecha_pago'] = fecha_pago
             
         with col2:
