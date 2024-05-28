@@ -127,11 +127,11 @@ def main():
             if not df.empty:
                 data2filtros = dataeventos[dataeventos['id'].isin(df['id'])]
             
-            col1,col2 = st.columns([0.3,0.7])
-            with col1:
-                if st.button('Guardar'):
-                    with st.spinner('Guardando datos de evento y factura'):
-                        edit_factura(response['data'],'_facturacion')
+            #col1,col2 = st.columns([0.3,0.7])
+            #with col1:
+            #    if st.button('Guardar'):
+            #        with st.spinner('Guardando datos de evento y factura'):
+            #            edit_factura(response['data'],'_facturacion')
 
     #-------------------------------------------------------------------------#
     # Editar cifras de facturas
@@ -355,11 +355,11 @@ def main():
                 if not df.empty:
                     datapagosfiltro = datapagos[datapagos['id'].isin(df['id'])]
                                 
-                col1,col2 = st.columns([0.3,0.7])
-                with col1:
-                    if st.button('Guardar Pago'):
-                        with st.spinner('Guardando datos de pago'):
-                            edit_factura(response['data'],'_pagos_recibidos')
+                #col1,col2 = st.columns([0.3,0.7])
+                #with col1:
+                #    if st.button('Guardar Pago'):
+                #        with st.spinner('Guardando datos de pago'):
+                #            edit_factura(response['data'],'_pagos_recibidos')
               
     #-------------------------------------------------------------------------#
     # Editar cifras de pagos
