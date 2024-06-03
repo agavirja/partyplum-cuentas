@@ -126,12 +126,6 @@ def main():
             df = pd.DataFrame(response['selected_rows'])
             if not df.empty:
                 data2filtros = dataeventos[dataeventos['id'].isin(df['id'])]
-            
-            #col1,col2 = st.columns([0.3,0.7])
-            #with col1:
-            #    if st.button('Guardar'):
-            #        with st.spinner('Guardando datos de evento y factura'):
-            #            edit_factura(response['data'],'_facturacion')
 
     #-------------------------------------------------------------------------#
     # Editar cifras de facturas
@@ -179,7 +173,7 @@ def main():
                 index = options.index(value)
             paquete = st.selectbox('Paquete: ',options=options,index=index)
             dataexport.loc[0,'paquete'] = paquete
-        
+            
         col1, col2, col3, col4 = st.columns(4)
         with col1:
             st.write('')
@@ -187,31 +181,6 @@ def main():
             default_value = dataexport['realizado'].iloc[0]
             realizado = st.toggle('Evento realizado ', value=bool(default_value))
             dataexport.loc[0, 'realizado'] = realizado
-        
-        with col2:
-            uploaded_file  = st.file_uploader("Subir factura ")
-            link_factura   = dataexport['link_factura'].iloc[0]
-            if isinstance(link_factura,str):
-                st.write(link_factura)
-
-        with col3:
-            if uploaded_file:
-                st.write('')
-                st.write('')
-                if st.button('Subir factura'):
-                    link_factura = uploadfileS3('facturas',uploaded_file, f'factura_id_{dataexport["id"].iloc[0]}')
-                    st.rerun()
-                link_factura = getfileS3('facturas',f'factura_id_{dataexport["id"].iloc[0]}.pdf')
-            dataexport.loc[0, 'link_factura'] = link_factura
-        
-        with col4:
-            st.write('')
-            st.write('')
-            default_value = dataexport['factura'].iloc[0]
-            if isinstance(link_factura,str):
-                default_value = True
-            factura = st.toggle('Factura ', value=bool(default_value))
-            dataexport.loc[0, 'factura'] = factura
         
         col1, col2, col3, col4 = st.columns(4)
         with col1:
@@ -276,6 +245,37 @@ def main():
                 try:    fecha_devolucion = st.date_input('Fecha devolución: ', value=default_value)
                 except: fecha_devolucion = st.date_input('Fecha devolución: ', value=None)
                 dataexport.loc[0, 'fecha_devolucion'] = fecha_devolucion
+            
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            default_value = dataexport['fecha_factura'].iloc[0]
+            fecha_evento  = st.date_input('Fecha dela factura', value=default_value)
+            dataexport.loc[0, 'fecha_factura'] = fecha_evento
+        
+        with col2:
+            uploaded_file  = st.file_uploader("Subir factura ")
+            link_factura   = dataexport['link_factura'].iloc[0]
+            if isinstance(link_factura,str):
+                st.write(link_factura)
+
+        with col3:
+            if uploaded_file:
+                st.write('')
+                st.write('')
+                if st.button('Subir factura'):
+                    link_factura = uploadfileS3('facturas',uploaded_file, f'factura_id_{dataexport["id"].iloc[0]}')
+                    st.rerun()
+                link_factura = getfileS3('facturas',f'factura_id_{dataexport["id"].iloc[0]}.pdf')
+            dataexport.loc[0, 'link_factura'] = link_factura
+        
+        with col4:
+            st.write('')
+            st.write('')
+            default_value = dataexport['factura'].iloc[0]
+            if isinstance(link_factura,str):
+                default_value = True
+            factura = st.toggle('Factura ', value=bool(default_value))
+            dataexport.loc[0, 'factura'] = factura
             
         col1,col2 = st.columns([0.3,0.7])
         with col1:
@@ -354,13 +354,7 @@ def main():
                 df = pd.DataFrame(response['selected_rows'])
                 if not df.empty:
                     datapagosfiltro = datapagos[datapagos['id'].isin(df['id'])]
-                                
-                #col1,col2 = st.columns([0.3,0.7])
-                #with col1:
-                #    if st.button('Guardar Pago'):
-                #        with st.spinner('Guardando datos de pago'):
-                #            edit_factura(response['data'],'_pagos_recibidos')
-              
+
     #-------------------------------------------------------------------------#
     # Editar cifras de pagos
     if not datapagosfiltro.empty and len(datapagosfiltro)==1:
