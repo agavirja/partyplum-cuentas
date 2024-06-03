@@ -240,7 +240,7 @@ def main():
                 except: pass
             tipo_cuenta_personal = st.selectbox('Tipo de la cuenta personal:',options=options,index=index)
             dataexport.loc[0,'tipo_cuenta_personal'] = tipo_cuenta_personal
-            if tipo_cuenta_personal=='': dataexport.loc[0,'tipo_cuenta_personal'] = tipo_cuenta_personal
+            if tipo_cuenta_personal=='': dataexport.loc[0,'tipo_cuenta_personal'] = None
         
             tipo_moneda_cuenta_personal = None
             if  tipo_cuenta_personal=='': 
