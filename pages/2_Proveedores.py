@@ -279,9 +279,11 @@ def crearpago(data):
         st.write('---')
         
 def edit_pago_proveedores(data,table):
+    data = data.dropna(axis=1, how='all')   
     if not data.empty:
         variables = list(data)
         if 'id' in variables: variables.remove('id')
+        if 'fecha_registro' in variables: variables.remove('fecha_registro')
         variablesdata = ['fecha_pago', 'valor_pago', 'pagada', 'concepto', 'tipopago', 'formapago', 'iva', 'retenciones', 'link_factura_cuenta', 'link_comprobante_pago']
         variables     = [x for x in variablesdata if x in list(data)]
 
