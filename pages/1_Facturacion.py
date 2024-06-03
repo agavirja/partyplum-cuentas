@@ -655,7 +655,7 @@ def crearevento(newevent,data):
                 fecha_pago_cuenta_personal = st.date_input('Fecha de la transferencia a cuenta personal:')
         with col4:
             tasa_cambio_moneda_cuenta_personal = None
-            if 'USD' in tipo_moneda_cuenta_personal :
+            if isinstance(tipo_moneda_cuenta_personal,str) and 'USD' in tipo_moneda_cuenta_personal :
                 tasa_cambio_moneda_cuenta_personal = st.number_input('Tasa de cambio transferencia cuenta personal:', value=0.0)
 
         data['fecha_evento']       = fecha_evento
