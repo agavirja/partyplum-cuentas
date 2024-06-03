@@ -172,7 +172,7 @@ def main():
             dataexport.loc[0, 'direccion_evento'] = direccion_evento
 
         with col4:
-            options = ['DECORACION PLUM MINI TABLE','DECORACION PLUM MEDIANO','DECORACION PLUM DELUX','DECORACION PLUM SPLENDOR','DECORACION PLUM ECOLOGICO']
+            options = ['DECORACION PLUM MINI TABLE','DECORACION PLUM MEDIANO','DECORACION PLUM DELUXE','DECORACION PLUM SPLENDOR','DECORACION PLUM ECOLOGICO']
             value   = dataexport['paquete'].iloc[0]
             index   = 0
             if value is not None and value!='':
@@ -536,7 +536,7 @@ def crearevento(newevent,data):
         with col3:
             direccion_evento = st.text_input('Dirección del evento:', value='', max_chars=90)
         with col4:
-            paquete = st.selectbox('Paquete:',options=['DECORACION PLUM MINI TABLE','DECORACION PLUM MEDIANO','DECORACION PLUM DELUX','DECORACION PLUM SPLENDOR','DECORACION PLUM ECOLOGICO'])
+            paquete = st.selectbox('Paquete:',options=['DECORACION PLUM MINI TABLE','DECORACION PLUM MEDIANO','DECORACION PLUM DELUXE','DECORACION PLUM SPLENDOR','DECORACION PLUM ECOLOGICO'])
 
         col1,col2,col3,col4 = st.columns(4)
         with col1:
@@ -686,6 +686,7 @@ def edit_factura(data,table):
         variables = list(data)
         if 'id' in variables: variables.remove('id')
         if 'link' in variables: variables.remove('link')
+        if 'fecha_registro' in variables: variables.remove('fecha_registro')
         formatted_string = ', '.join([f'{var}=%s' for var in variables])
         variables.append('id')
         df   = data[variables]
