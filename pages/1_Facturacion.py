@@ -224,6 +224,43 @@ def main():
             observaciones = st.text_area('Observaciones: ', value=default_value)
             dataexport.loc[0, 'observaciones'] = observaciones
         
+        
+        
+        col1,col2,col3,col4 = st.columns(4)
+        with col1:
+            default_value = dataexport['valor_total_cuenta_personal'].iloc[0]
+            valor_total_cuenta_personal = st.number_input('Valor transferencia cuenta personal:', value=default_value,format="%f")
+            dataexport.loc[0, 'valor_total_cuenta_personal'] = valor_total_cuenta_personal
+        with col2:
+            options = ['','Bancolombia','PNC']
+            value   = dataexport['paquete'].iloc[0]
+            index   = 0
+            if value is not None and value!='':
+                try: index = options.index(value)
+                except: pass
+            tipo_cuenta_personal = st.selectbox('Tipo de la cuenta personal:',options=options,index=index)
+            if tipo_cuenta_personal=='': tipo_cuenta_personal = None
+            dataexport.loc[0,'tipo_cuenta_personal'] = tipo_cuenta_personal
+
+            tipo_moneda_cuenta_personal = None
+            if  tipo_cuenta_personal=='': 
+                tipo_cuenta_personal = None
+            elif 'Bancolombia' in tipo_cuenta_personal :
+                tipo_moneda_cuenta_personal = 'COP'
+            elif 'PNC' in tipo_cuenta_personal :
+                tipo_moneda_cuenta_personal = 'USD'
+            dataexport.loc[0,'tipo_moneda_cuenta_personal'] = tipo_moneda_cuenta_personal
+
+        with col3:
+            default_value = dataexport['fecha_pago_cuenta_personal'].iloc[0]
+            fecha_pago_cuenta_personal  = st.date_input('Fecha de la transferencia a cuenta personal:', value=default_value)
+            dataexport.loc[0, 'fecha_pago_cuenta_personal'] = fecha_pago_cuenta_personal
+
+        with col4:
+            default_value = dataexport['tasa_cambio_moneda_cuenta_personal'].iloc[0]
+            tasa_cambio_moneda_cuenta_personal = st.number_input('Tasa de cambio transferencia cuenta personal:', value=default_value,format="%f")
+            dataexport.loc[0, 'tasa_cambio_moneda_cuenta_personal'] = tasa_cambio_moneda_cuenta_personal
+
         col1, col2, col3, col4 = st.columns(4)
         with col1:
             st.write('')
@@ -599,6 +636,28 @@ def crearevento(newevent,data):
             if devolucion:
                 fecha_devolucion = st.date_input('Fecha de Devolución:')
 
+
+        col1,col2,col3,col4 = st.columns(4)
+        with col1:
+            valor_total_cuenta_personal = st.number_input('Valor transferencia cuenta personal:', value=0.0)
+        with col2:
+            tipo_cuenta_personal = st.selectbox('Tipo de la cuenta personal:', options=['','Bancolombia','PNC'])
+            tipo_moneda_cuenta_personal = None
+            if  tipo_cuenta_personal=='': 
+                tipo_cuenta_personal = None
+            elif 'Bancolombia' in tipo_cuenta_personal :
+                tipo_moneda_cuenta_personal = 'COP'
+            elif 'PNC' in tipo_cuenta_personal :
+                tipo_moneda_cuenta_personal = 'USD'
+        with col3:
+            fecha_pago_cuenta_personal = None
+            if tipo_cuenta_personal!='':
+                fecha_pago_cuenta_personal = st.date_input('Fecha de la transferencia a cuenta personal:')
+        with col4:
+            tasa_cambio_moneda_cuenta_personal = None
+            if 'USD' in tipo_moneda_cuenta_personal :
+                tasa_cambio_moneda_cuenta_personal = st.number_input('Tasa de cambio transferencia cuenta personal:', value=0.0)
+
         data['fecha_evento']       = fecha_evento
         data['ciudad_evento']      = ciudad_evento
         data['direccion_evento']   = direccion_evento
@@ -617,6 +676,12 @@ def crearevento(newevent,data):
         data['valor_devolucion']   = valor_devolucion
         data['fecha_devolucion']   = fecha_devolucion
         data['observaciones']      = observaciones
+        data['valor_total_cuenta_personal']        = valor_total_cuenta_personal
+        data['tipo_cuenta_personal']               = tipo_cuenta_personal
+        data['tipo_moneda_cuenta_personal']        = tipo_moneda_cuenta_personal
+        data['fecha_pago_cuenta_personal']         = fecha_pago_cuenta_personal
+        data['tasa_cambio_moneda_cuenta_personal'] = tasa_cambio_moneda_cuenta_personal
+        
         col1,col2 = st.columns([0.3,0.7])
         with col1:
             if st.button('Guardar evento'):
