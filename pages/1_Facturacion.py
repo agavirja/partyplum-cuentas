@@ -676,6 +676,7 @@ def crearpago(data):
         st.write('---')
 
 def edit_factura(data,table):
+    data = data.dropna(axis=1, how='all')   
     if not data.empty:
         variables = list(data)
         if 'id' in variables: variables.remove('id')
