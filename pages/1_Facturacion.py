@@ -257,9 +257,10 @@ def main():
             dataexport.loc[0, 'fecha_pago_cuenta_personal'] = fecha_pago_cuenta_personal
 
         with col4:
-            default_value = dataexport['tasa_cambio_moneda_cuenta_personal'].iloc[0]
-            tasa_cambio_moneda_cuenta_personal = st.number_input('Tasa de cambio transferencia cuenta personal:', value=default_value,format="%f")
-            dataexport.loc[0, 'tasa_cambio_moneda_cuenta_personal'] = tasa_cambio_moneda_cuenta_personal
+            if isinstance(tipo_moneda_cuenta_personal,str) and 'USD' in tipo_moneda_cuenta_personal:
+                default_value = dataexport['tasa_cambio_moneda_cuenta_personal'].iloc[0]
+                tasa_cambio_moneda_cuenta_personal = st.number_input('Tasa de cambio transferencia cuenta personal:', value=default_value,format="%f")
+                dataexport.loc[0, 'tasa_cambio_moneda_cuenta_personal'] = tasa_cambio_moneda_cuenta_personal
 
         col1, col2, col3, col4 = st.columns(4)
         with col1:
