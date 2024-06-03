@@ -305,6 +305,7 @@ def main():
 
         with st.spinner('Datos del evento'):
             datapagos = getpayments(dataexport['id'].iloc[0])
+            if 'fecha_registro' in datapagos: del datapagos['fecha_registro']
             recaudototal = datapagos['valor'].sum()
             if not datapagos.empty:
                 titulo = 'Información de pagos'
