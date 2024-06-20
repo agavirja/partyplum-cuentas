@@ -49,7 +49,8 @@ def main():
         st.markdown(str(texto), unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         with col1:
-            newclient = st.toggle('Crear nuevo cliente',value=False)
+            #newclient = st.toggle('Crear nuevo cliente',value=False)
+            newclient = st.checkbox('Crear nuevo cliente',value=False)
         registrarcliente(newclient)
         
     #-------------------------------------------------------------------------#
@@ -73,7 +74,8 @@ def main():
             titulotoggle = 'Crear evento'
             
         with col1:
-            newevent = st.toggle(titulotoggle,value=valueE)
+            #newevent = st.toggle(titulotoggle,value=valueE)
+            newevent = st.checkbox(titulotoggle,value=valueE)
             df       = dataclientes[(dataclientes['nombre_cliente']==cliente) | (dataclientes['razonsocial']==cliente)].iloc[[0]]
         crearevento(newevent,df)
 
@@ -179,7 +181,8 @@ def main():
             st.write('')
             st.write('')
             default_value = dataexport['realizado'].iloc[0]
-            realizado = st.toggle('Evento realizado ', value=bool(default_value))
+            #realizado = st.toggle('Evento realizado ', value=bool(default_value))
+            realizado = st.checkbox('Evento realizado ', value=bool(default_value))
             dataexport.loc[0, 'realizado'] = realizado
         
         col1, col2, col3, col4 = st.columns(4)
@@ -267,7 +270,8 @@ def main():
             st.write('')
             st.write('')
             default_value = dataexport['devolucion'].iloc[0]
-            devolucion    = st.toggle('Devolucion: ', value=bool(default_value))
+            #devolucion    = st.toggle('Devolucion: ', value=bool(default_value))
+            devolucion    = st.checkbox('Devolucion: ', value=bool(default_value))
             dataexport.loc[0, 'devolucion'] = devolucion
         
         with col2:
@@ -312,7 +316,8 @@ def main():
             default_value = dataexport['factura'].iloc[0]
             if isinstance(link_factura,str):
                 default_value = True
-            factura = st.toggle('Factura ', value=bool(default_value))
+            #factura = st.toggle('Factura ', value=bool(default_value))
+            factura = st.checkbox('Factura ', value=bool(default_value))
             dataexport.loc[0, 'factura'] = factura
             
         col1,col2 = st.columns([0.3,0.7])
@@ -337,7 +342,8 @@ def main():
         dataexport.index = range(len(dataexport))
         col1, col2 = st.columns(2)
         with col1:
-            newpay = st.toggle('Crear nuevo pago',value=False)
+            #newpay = st.toggle('Crear nuevo pago',value=False)
+            newpay = st.checkbox('Crear nuevo pago',value=False)
         if newpay:
             crearpago(dataexport)
 
@@ -577,8 +583,8 @@ def crearevento(newevent,data):
         with col1:
             st.write('')
             st.write('')
-            realizado = st.toggle('Evento realizado',value=False)
-
+            #realizado = st.toggle('Evento realizado',value=False)
+            realizado = st.checkbox('Evento realizado',value=False)
         with col2:
             uploaded_file  = st.file_uploader("Elige un archivo PDF")
             
@@ -597,7 +603,8 @@ def crearevento(newevent,data):
             valueE = False
             if isinstance(link_factura, str):
                 valueE = True
-            factura = st.toggle('Factura',value=valueE)
+            #factura = st.toggle('Factura',value=valueE)
+            factura = st.checkbox('Factura',value=valueE)
 
         col1,col2,col3,col4 = st.columns(4)
         with col1:
@@ -627,7 +634,8 @@ def crearevento(newevent,data):
         with col1:
             st.write('')
             st.write('')
-            devolucion = st.toggle('Devolución:', value=0)
+            #devolucion = st.toggle('Devolución:', value=0)
+            devolucion = st.checkbox('Devolución:', value=0)
         with col2:
             valor_devolucion = None
             if devolucion:

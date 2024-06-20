@@ -49,7 +49,9 @@ def main():
         st.markdown(str(texto), unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         with col1:
-            newproveedor = st.toggle('Crear nuevo proveedor',value=False)
+            #newproveedor = st.toggle('Crear nuevo proveedor',value=False)
+            newproveedor = st.checkbox('Crear nuevo proveedor',value=False)
+
         registrarproveedor(newproveedor)
         
     #-------------------------------------------------------------------------#
@@ -214,7 +216,8 @@ def crearpago(data):
         with col3:
             st.write('')
             st.write('')
-            pagada = st.toggle("Pagada",value=False)
+            #pagada = st.toggle("Pagada",value=False)
+            pagada = st.checkbox("Pagada",value=False)
         with col4:
             concepto = st.text_area("Concepto del pago:",value='')
             
