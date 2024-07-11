@@ -291,6 +291,8 @@ def main():
         col1, col2, col3, col4 = st.columns(4)
         with col1:
             default_value = dataexport['fecha_factura'].iloc[0]
+            if pd.isna(default_value):
+                default_value = None
             fecha_evento  = st.date_input('Fecha dela factura', value=default_value)
             dataexport.loc[0, 'fecha_factura'] = fecha_evento
         
