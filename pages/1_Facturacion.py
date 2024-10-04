@@ -258,7 +258,8 @@ def main():
             try:
                 default_value = dataexport['fecha_pago_cuenta_personal'].iloc[0]
                 fecha_pago_cuenta_personal  = st.date_input('Fecha de la transferencia a cuenta personal:', value=default_value,key='transferenciacuentapersonal2')
-            except: pass
+            except: 
+                fecha_pago_cuenta_personal  = st.date_input('Fecha de la transferencia a cuenta personal:',key='transferenciacuentapersonal2')
             dataexport.loc[0, 'fecha_pago_cuenta_personal'] = fecha_pago_cuenta_personal
 
         with col4:
