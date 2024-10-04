@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 
 from display.style_white import style 
 
+st.set_page_config(layout='wide')
 
 def main():
 
