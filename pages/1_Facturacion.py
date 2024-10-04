@@ -241,7 +241,7 @@ def main():
             if value is not None and value!='':
                 try: index = options.index(value)
                 except: pass
-            tipo_cuenta_personal = st.selectbox('Tipo de la cuenta personal:',options=options,index=index)
+            tipo_cuenta_personal = st.selectbox('Tipo de la cuenta personal:',options=options,index=index,key='cuentapersonal2')
             dataexport.loc[0,'tipo_cuenta_personal'] = tipo_cuenta_personal
             if tipo_cuenta_personal=='': dataexport.loc[0,'tipo_cuenta_personal'] = None
         
@@ -255,8 +255,10 @@ def main():
             dataexport.loc[0,'tipo_moneda_cuenta_personal'] = tipo_moneda_cuenta_personal
 
         with col3:
-            default_value = dataexport['fecha_pago_cuenta_personal'].iloc[0]
-            fecha_pago_cuenta_personal  = st.date_input('Fecha de la transferencia a cuenta personal:', value=default_value)
+            try:
+                default_value = dataexport['fecha_pago_cuenta_personal'].iloc[0]
+                fecha_pago_cuenta_personal  = st.date_input('Fecha de la transferencia a cuenta personal:', value=default_value,key='transferenciacuentapersonal2')
+            except: pass
             dataexport.loc[0, 'fecha_pago_cuenta_personal'] = fecha_pago_cuenta_personal
 
         with col4:
@@ -652,7 +654,7 @@ def crearevento(newevent,data):
         with col1:
             valor_total_cuenta_personal = st.number_input('Valor transferencia cuenta personal:', value=0.0)
         with col2:
-            tipo_cuenta_personal = st.selectbox('Tipo de la cuenta personal:', options=['','Bancolombia','PNC'])
+            tipo_cuenta_personal = st.selectbox('Tipo de la cuenta personal:', options=['','Bancolombia','PNC'],key='cuentapersonal1')
             tipo_moneda_cuenta_personal = None
             if  tipo_cuenta_personal=='': 
                 tipo_cuenta_personal = None
@@ -663,7 +665,7 @@ def crearevento(newevent,data):
         with col3:
             fecha_pago_cuenta_personal = None
             if tipo_cuenta_personal!='':
-                fecha_pago_cuenta_personal = st.date_input('Fecha de la transferencia a cuenta personal:')
+                fecha_pago_cuenta_personal = st.date_input('Fecha de la transferencia a cuenta personal:',key='transferenciacuentapersonal1')
         with col4:
             tasa_cambio_moneda_cuenta_personal = None
             if isinstance(tipo_moneda_cuenta_personal,str) and 'USD' in tipo_moneda_cuenta_personal :
