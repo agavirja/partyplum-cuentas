@@ -26,10 +26,14 @@ def main():
     with st.spinner('Cargando información'):
         datafacturacion = getcuentas()
             
+    datafacturacion['fecha_filter'] = pd.to_datetime(datafacturacion['FECHA EVENTO'])
+    datafacturacion['fecha_filter'] = datafacturacion['fecha_filter'].dt.year
+    
     col1,col2,col3 = st.columns([0.4,0.4,0.2])
     with col1:
-        options = [2024]
-        year    = st.selectbox('Año del evento: ',options=options)
+        options = list(sorted(datafacturacion['fecha_filter'].unique()))
+        year    = st.selectbox('Año del evento: ',options=options,index=len(options)-1)
+        datafacturacion = datafacturacion[datafacturacion['fecha_filter']==year]
         
     with col2:
         options   = ['Todos','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
